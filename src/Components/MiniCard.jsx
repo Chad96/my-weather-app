@@ -31,6 +31,9 @@ const MiniCard = ({ time, temp, iconString, isCelsius }) => {
     }
   }, [iconString]);
 
+  const formatTemperature = (temp) => (isCelsius ? temp : temp.toFixed(1));
+  const displayTemperature = isCelsius ? temp : (temp * 9) / 5 + 32;
+
   return (
     <div className="glassCard w-[10rem] h-[10rem] p-4 flex flex-col">
       <p className="text-center">
@@ -49,7 +52,10 @@ const MiniCard = ({ time, temp, iconString, isCelsius }) => {
         />
       </div>
       <p className="text-center font-bold">
-        {temp}&deg;{isCelsius ? "C" : "F"}
+        {isCelsius
+          ? formatTemperature(temp)
+          : formatTemperature(displayTemperature)}
+        &deg;{isCelsius ? "C" : "F"}
       </p>
     </div>
   );

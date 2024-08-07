@@ -18,7 +18,7 @@ const WeatherCard = ({
   heatIndex,
   iconString,
   conditions,
-  isCelsius, // Added prop for temperature unit
+  isCelsius,
 }) => {
   const [icon, setIcon] = useState(sun);
   const { time } = useDate();
@@ -43,6 +43,9 @@ const WeatherCard = ({
     }
   }, [iconString]);
 
+  const formatTemperature = (temp) => (isCelsius ? temp : temp.toFixed(1));
+  const formatHeatIndex = (index) => (isCelsius ? index : index.toFixed(1));
+
   const displayTemperature = isCelsius
     ? temperature
     : (temperature * 9) / 5 + 32;
@@ -53,7 +56,8 @@ const WeatherCard = ({
       <div className="flex w-full just-center, items-center gap-4 mt-12 mb-4">
         <img src={icon} alt="weather_icon" />
         <p className="font-bold text-5xl flex justify-center items-center">
-          {displayTemperature} &deg;{isCelsius ? "C" : "F"}
+          {isCelsius ? temperature : formatTemperature(displayTemperature)}{" "}
+          &deg;{isCelsius ? "C" : "F"}
         </p>
       </div>
       <div className="font-bold text-center text-xl">{place}</div>
@@ -72,7 +76,7 @@ const WeatherCard = ({
       <div className="w-full p-3 mt-4 flex justify-between items-center">
         <p className="font-semibold text-lg">Heat Index</p>
         <p className="text-lg">
-          {displayHeatIndex ? displayHeatIndex : "N/A"} &deg;
+          {isCelsius ? heatIndex : formatHeatIndex(displayHeatIndex)} &deg;
           {isCelsius ? "C" : "F"}
         </p>
       </div>
