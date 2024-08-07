@@ -10,6 +10,7 @@ function App() {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   const [isCelsius, setIsCelsius] = useState(true); // State to manage temperature unit
   const { weather, thisLocation, values, place, setPlace } = useStateContext();
+  const [savedLocations, setSavedLocations] = useState([]);
 
   useEffect(() => {
     // Get user's current location
@@ -27,11 +28,22 @@ function App() {
         })
         .catch((error) => console.error("Error fetching location:", error));
     });
+
+    // Load saved locations from local storage
+    const saved = JSON.parse(localStorage.getItem("savedLocations")) || [];
+    setSavedLocations(saved);
   }, [setPlace]);
 
   const submitCity = () => {
     setPlace(input);
     setInput("");
+    saveLocation(input);
+  };
+
+  const saveLocation = (location) => {
+    const updatedLocations = [...savedLocations, location];
+    setSavedLocations(updatedLocations);
+    localStorage.setItem("savedLocations", JSON.stringify(updatedLocations));
   };
 
   const toggleTheme = () => {
@@ -112,6 +124,20 @@ function App() {
       >
         Switch to {isCelsius ? "Fahrenheit" : "Celsius"}
       </button>
+      <div className="mt-4">
+        <h2 className="font-bold text-xl">Saved Locations</h2>
+        <div className="flex flex-wrap gap-4 mt-2">
+          {savedLocations.map((location, index) => (
+            <button
+              key={index}
+              className="bg-gray-700 text-white p-2 rounded"
+              onClick={() => setPlace(location)}
+            >
+              {location}
+            </button>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
