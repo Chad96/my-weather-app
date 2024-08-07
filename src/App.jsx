@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import search from "./assets/icons/search.svg";
 import { useStateContext } from "./Context";
@@ -10,6 +10,24 @@ function App() {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   const [isCelsius, setIsCelsius] = useState(true); // State to manage temperature unit
   const { weather, thisLocation, values, place, setPlace } = useStateContext();
+
+  useEffect(() => {
+    // Get user's current location
+    navigator.geolocation.getCurrentPosition((position) => {
+      const { latitude, longitude } = position.coords;
+      // Use a reverse geocoding API to get the city name from latitude and longitude
+      fetch(
+        `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.city) {
+            setPlace(data.city);
+          }
+        })
+        .catch((error) => console.error("Error fetching location:", error));
+    });
+  }, [setPlace]);
 
   const submitCity = () => {
     setPlace(input);
@@ -25,7 +43,7 @@ function App() {
   };
 
   const convertTemperature = (temp) => {
-    return isCelsius ? temp : (temp * 9) / 5 + 32;
+    return isCelsius ? temp : ((temp * 9) / 5 + 32).toFixed(1);
   };
 
   return (
