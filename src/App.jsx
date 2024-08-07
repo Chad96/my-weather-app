@@ -3,9 +3,11 @@ import "./App.css";
 import search from "./assets/icons/search.svg";
 import { useStateContext } from "./Context";
 import { BackgroundLayout, WeatherCard, MiniCard } from "./Components";
+import darkBackground from "./assets/images/dark-background.jpg"; // Import the dark background image
 
 function App() {
   const [input, setInput] = useState("");
+  const [isDarkTheme, setIsDarkTheme] = useState(false); // State to manage theme
   const { weather, thisLocation, values, place, setPlace } = useStateContext();
   // console.log(weather)
 
@@ -14,8 +16,19 @@ function App() {
     setInput("");
   };
 
+  const toggleTheme = () => {
+    setIsDarkTheme(!isDarkTheme);
+  };
+
   return (
-    <div className="w-full h-screen text-white px-8">
+    <div
+      className="w-full h-screen text-white px-8"
+      style={{
+        backgroundImage: isDarkTheme ? `url(${darkBackground})` : "none",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <nav className="w-full p-3 flex justify-between items-center">
         <h1 className="font-bold tracking-wide text-3xl">Climate Dashboard</h1>
         <div className="bg-white w-[15rem] overflow-hidden shadow-2xl rounded flex items-center p-2 gap-2">
@@ -23,7 +36,7 @@ function App() {
           <input
             onKeyUp={(e) => {
               if (e.key === "Enter") {
-                // sumit the form
+                // submit the form
                 submitCity();
               }
             }}
@@ -35,7 +48,7 @@ function App() {
           />
         </div>
       </nav>
-      <BackgroundLayout></BackgroundLayout>
+      <BackgroundLayout />
       <main className="w-full flex flex-wrap gap-8 py-4 px-[10%] items-center justify-center">
         <WeatherCard
           place={thisLocation}
@@ -60,6 +73,12 @@ function App() {
           })}
         </div>
       </main>
+      <button
+        className="bg-blue-500 text-white p-2 rounded mt-4"
+        onClick={toggleTheme}
+      >
+        Switch to {isDarkTheme ? "Light" : "Dark"} Theme
+      </button>
     </div>
   );
 }
