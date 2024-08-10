@@ -8,15 +8,13 @@ import darkBackground from "./assets/images/dark-background.jpg";
 function App() {
   const [input, setInput] = useState("");
   const [isDarkTheme, setIsDarkTheme] = useState(false);
-  const [isCelsius, setIsCelsius] = useState(true); // State to manage temperature unit
+  const [isCelsius, setIsCelsius] = useState(true);
   const { weather, thisLocation, values, place, setPlace } = useStateContext();
   const [savedLocations, setSavedLocations] = useState([]);
 
   useEffect(() => {
-    // Get user's current location
     navigator.geolocation.getCurrentPosition((position) => {
       const { latitude, longitude } = position.coords;
-      // Use a reverse geocoding API to get the city name from latitude and longitude
       fetch(
         `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
       )
@@ -29,7 +27,6 @@ function App() {
         .catch((error) => console.error("Error fetching location:", error));
     });
 
-    // Load saved locations from local storage
     const saved = JSON.parse(localStorage.getItem("savedLocations")) || [];
     setSavedLocations(saved);
   }, [setPlace]);
@@ -60,11 +57,13 @@ function App() {
 
   return (
     <div
-      className="w-full h-screen text-white px-8"
+      className="w-full min-h-screen text-white px-8"
       style={{
         backgroundImage: isDarkTheme ? `url(${darkBackground})` : "none",
         backgroundSize: "cover",
         backgroundPosition: "center",
+        backgroundRepeat: "no-repeat", // Ensures the image doesn't repeat if the content is shorter than the screen height
+        backgroundAttachment: "fixed", // Keeps the background fixed while scrolling
       }}
     >
       <nav className="w-full p-3 flex justify-between items-center">
