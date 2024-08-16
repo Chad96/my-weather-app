@@ -113,3 +113,7 @@ Contributions are welcome! Please fork the repository, create a new branch, and 
 This project is licensed under the MIT License. See the LICENSE file for more details.
 
 ## Preview
+![Screenshot 2024-08-16 213448](https://github.com/user-attachments/assets/91f399a5-22bf-446a-9459-fdd269300140)
+![Screenshot 2024-08-16 213522](https://github.com/user-attachments/assets/42339847-cbc8-48ec-8bc3-fcb9c3fbbe9c)
+![Screenshot 2024-08-16 213845](https://github.com/user-attachments/assets/47f7e5f2-8253-4a3f-bb1d-8ca8d7dd806d)
+![Screenshot 2024-08-16 213936](https://github.com/user-attachments/assets/9e753df7-e145-4c66-8606-68f3fd775fa2)
