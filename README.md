@@ -66,29 +66,6 @@ Viewing Weather: Enter a location in the search bar or allow the app to auto-det
 Saving Locations: Save your favorite locations for quick access later.
 Customizing the App: Switch between themes and change the temperature units as per your preference.
 
-## Project Structure
-
-bash
-Copy code
-├── public
-│ ├── index.html
-│ └── ...
-├── src
-│ ├── components
-│ │ ├── WeatherDisplay.jsx
-│ │ ├── SearchBar.jsx
-│ │ └── ...
-│ ├── pages
-│ │ ├── HomePage.jsx
-│ │ ├── SavedLocationsPage.jsx
-│ │ └── ...
-│ ├── App.jsx
-│ ├── index.js
-│ └── ...
-├── package.json
-├── README.md
-└── ...
-
 ## Technologies Used
 
 React.js: A JavaScript library for building user interfaces.
